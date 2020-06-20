@@ -51,6 +51,26 @@ class MainFragment : Fragment() {
 
                     if(it?.response?.isSuccessful!!){
 
+                        Timber.tag("header Link").d(it?.response.headers().get("link"))
+
+                        val headerLink=it?.response.headers().get("link").toString().substringAfter("<https://api.github.com/repositories?since=")
+                            .substringBefore("\", <https://api.github.com/repositories")
+                        val pattern=Regex(">; rel=\"")
+
+                        val match:List<String> = pattern.split(headerLink)
+
+                        if(match[1].equals("next")){
+                            viewModel.fetchRepositories(match[0].toInt())
+                            Timber.tag("Pagination").d("since ${match[0]}")
+                        }else{
+                            Timber.tag("Pagination").d("since ${match[1]}")
+                        }
+
+                        match.let {
+                            for(match in it)
+                                Timber.tag("match").d(match)
+                        }
+
                         it?.response?.body()?.let{
 
                             val iterator = it.iterator()
