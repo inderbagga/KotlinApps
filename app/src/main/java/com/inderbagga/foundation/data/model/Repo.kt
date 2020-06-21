@@ -1,16 +1,15 @@
 package com.inderbagga.foundation.data.model
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Inder Bagga on 19/06/20.
  * Email er[dot]inderbagga[at]gmail[dot]com
  */
-data class RepoItem(
+@Parcelize
+data class Repo(
     @SerializedName("archive_url")
     val archiveUrl: String,
     @SerializedName("assignees_url")
@@ -103,19 +102,5 @@ data class RepoItem(
     val treesUrl: String,
     @SerializedName("url")
     val url: String
-){
-
-/*  Further requires to remove build warning
-    Ref: https://medium.com/@thinkpanda_75045/defining-android-binding-adapter-in-kotlin-b08e82116704*/
-    companion object {
-        @BindingAdapter("avatarImage")
-        @JvmStatic
-        fun loadImage(view: ImageView, imageUrl: String) {
-            Glide.with(view.context)
-                .load(imageUrl).apply(RequestOptions.centerCropTransform())
-                .into(view)
-        }
-
-    }
-}
+): Parcelable
 

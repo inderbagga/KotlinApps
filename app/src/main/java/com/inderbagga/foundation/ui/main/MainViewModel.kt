@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.inderbagga.foundation.data.model.RepoItem
+import com.inderbagga.foundation.data.model.Repo
 import com.inderbagga.foundation.ui.source.RepoListDataSource
 import com.inderbagga.foundation.ui.source.RepoListDataSourceFactory
 import java.util.concurrent.Executors
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 class MainViewModel(private val repoListDataSourceFactory: RepoListDataSourceFactory) : ViewModel() {
 
     var dataSource : MutableLiveData<RepoListDataSource>
-    lateinit var liveRepo: LiveData<PagedList<RepoItem>>
+    lateinit var liveRepo: LiveData<PagedList<Repo>>
     val isLoading: ObservableField<Boolean> = ObservableField()
     var errorMessage: ObservableField<String> = ObservableField()
 
@@ -35,12 +35,12 @@ class MainViewModel(private val repoListDataSourceFactory: RepoListDataSourceFac
             .setEnablePlaceholders(true)
             .setInitialLoadSizeHint(RepoListDataSource.PAGE_SIZE)
             .setPageSize(RepoListDataSource.PAGE_SIZE)
-            .setPrefetchDistance(3)
+            .setPrefetchDistance(10)
             .build()
 
         val executor = Executors.newFixedThreadPool(5)
 
-        liveRepo = LivePagedListBuilder<Int, RepoItem>(repoListDataSourceFactory, config)
+        liveRepo = LivePagedListBuilder<Int, Repo>(repoListDataSourceFactory, config)
             .setFetchExecutor(executor)
             .build()
     }

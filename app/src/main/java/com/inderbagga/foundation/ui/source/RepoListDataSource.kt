@@ -5,7 +5,7 @@ import kotlinx.coroutines.*
 import androidx.lifecycle.MutableLiveData
 import com.inderbagga.foundation.data.base.Status
 import com.inderbagga.foundation.data.api.GitClientApi
-import com.inderbagga.foundation.data.model.RepoItem
+import com.inderbagga.foundation.data.model.Repo
 import com.inderbagga.foundation.data.model.Repos
 import retrofit2.Response
 import timber.log.Timber
@@ -14,7 +14,7 @@ import timber.log.Timber
  * Created by Inder Bagga on 21/06/20.
  * Email er[dot]inderbagga[at]gmail[dot]com
  */
-class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataSource<Int, RepoItem>() {
+class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataSource<Int, Repo>() {
 
     private val dataSourceJob = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + dataSourceJob)
@@ -24,7 +24,7 @@ class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataS
         const val PAGE_SIZE = 100
     }
 
-    override fun loadInitial(params: LoadInitialParams<Int>, initialCallback: LoadInitialCallback<Int, RepoItem>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, initialCallback: LoadInitialCallback<Int, Repo>) {
         scope.launch {
             liveState.postValue(Status.LOADING)
 
@@ -48,7 +48,7 @@ class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataS
         }
     }
 
-    private fun processData(response: Response<Repos>, initialCallback: LoadInitialCallback<Int, RepoItem>?, paginatedCallback: LoadCallback<Int, RepoItem>?) {
+    private fun processData(response: Response<Repos>, initialCallback: LoadInitialCallback<Int, Repo>?, paginatedCallback: LoadCallback<Int, Repo>?) {
 
         Timber.tag("headerLink").d(response.headers()["link"])
 
@@ -79,7 +79,7 @@ class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataS
 
     }
 
-    override fun loadAfter(params: LoadParams<Int>, paginatedCallback: LoadCallback<Int, RepoItem>) {
+    override fun loadAfter(params: LoadParams<Int>, paginatedCallback: LoadCallback<Int, Repo>) {
         scope.launch {
             val data = gitApiClient.getRepositories(params.key)
             data?.response.let { it ->
@@ -91,7 +91,7 @@ class RepoListDataSource(private val gitApiClient: GitClientApi): PageKeyedDataS
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, RepoItem>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Repo>) {
 
     }
 }

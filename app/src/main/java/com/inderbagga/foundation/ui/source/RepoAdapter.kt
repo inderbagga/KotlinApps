@@ -6,21 +6,21 @@ import android.view.LayoutInflater
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
-import com.inderbagga.foundation.data.model.RepoItem
+import com.inderbagga.foundation.data.model.Repo
 import com.inderbagga.foundation.databinding.MainFragmentListItemBinding
 
 /**
  * Created by Inder Bagga on 21/06/20.
  * Email er[dot]inderbagga[at]gmail[dot]com
  */
-class RepoAdapter(private val listener: RepoListAdapterInteraction): PagedListAdapter<RepoItem, RepoAdapter.RepoViewHolder>(
+class RepoAdapter(private val listener: RepoListAdapterInteraction): PagedListAdapter<Repo, RepoAdapter.RepoViewHolder>(
     usersDiffCallback
 ) {
 
     lateinit var context: Context
 
     interface RepoListAdapterInteraction {
-        fun onRepoItemClick(repoItem: RepoItem)
+        fun onRepoItemClick(repoItem: Repo)
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
@@ -33,15 +33,14 @@ class RepoAdapter(private val listener: RepoListAdapterInteraction): PagedListAd
     }
 
     inner class RepoViewHolder(val binding: MainFragmentListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(repoItem: RepoItem) {
+        fun bind(repoItem: Repo) {
 
-        /*
-            holder.repoItemLayout.setOnClickListener {
-                listener.onRepoItemClick(githubUserModel)
-            }*/
+            binding.repoItemLayout.setOnClickListener {
+                listener.onRepoItemClick(repoItem)
+            }
 
-            binding.repoItem = repoItem
-            binding.ownerAvatarUrl=repoItem.owner.avatarUrl
+            binding.repo = repoItem
+            //binding.ownerAvatarUrl=repoItem.owner.avatarUrl
             binding.executePendingBindings()
         }
     }
@@ -56,11 +55,11 @@ class RepoAdapter(private val listener: RepoListAdapterInteraction): PagedListAd
     }
 
     companion object {
-        val usersDiffCallback = object : DiffUtil.ItemCallback<RepoItem>() {
-            override fun areItemsTheSame(oldItem: RepoItem, newItem: RepoItem): Boolean {
+        val usersDiffCallback = object : DiffUtil.ItemCallback<Repo>() {
+            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem.id == newItem.id
             }
-            override fun areContentsTheSame(oldItem: RepoItem, newItem: RepoItem): Boolean {
+            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 return oldItem == newItem
             }
         }

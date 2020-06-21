@@ -1,10 +1,16 @@
 <resources>
-    <string name="app_name">Github App</string>
+    <string name="app_name">Github Directory</string>
 
-    <string name="main_fragment_title">Github Repositories</string>
-    <string name="detail_fragment_title">Repository Owner Information</string>
+    <string name="main_fragment_title">Github Repos</string>
+    <string name="detail_fragment_title">Repo Owner Details</string>
     <string name="msg_repo_list_is_empty" >Repos are Empty!</string>
     <string name="msg_fetch_repo_list_has_error" >Ooops, Something went wrong!\n Please call 9888101950 to report the issue.</string>
     <string name="repo_name_with_id" >%1$d %2$s</string>
 
+    <string name="lbl_repo_name">Full Name:</string>
+    <string name="lbl_repo_description">Description:</string>
+    <string name="lbl_repo_type">Repo Type:</string>
+    <string name="null_repo_description">Information is not available!</string>
+
+    <string name="btn_see_profile">See profile</string>
 </resources>

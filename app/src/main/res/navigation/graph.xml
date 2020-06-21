@@ -10,6 +10,18 @@
         android:label="@string/main_fragment_title"
         tools:layout="@layout/main_fragment">
 
+        <action android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment"/>
+
     </fragment>
 
+    <fragment android:id="@+id/detailFragment"
+        android:name="com.inderbagga.foundation.ui.detail.DetailFragment"
+        android:label="@string/detail_fragment_title"
+        tools:layout="@layout/detail_fragment">
+
+        <argument
+            android:name="repo"
+            app:argType="com.inderbagga.foundation.data.model.Repo" />
+    </fragment>
 </navigation>

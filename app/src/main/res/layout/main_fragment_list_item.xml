@@ -4,12 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="repoItem"
-            type="com.inderbagga.foundation.data.model.RepoItem" />
-
-        <variable
-            name="ownerAvatarUrl"
-            type="String" />
+            name="repo"
+            type="com.inderbagga.foundation.data.model.Repo" />
     </data>
 <LinearLayout
     android:id="@+id/repoItemLayout"
@@ -27,7 +23,7 @@
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:scaleType="centerCrop"
-        app:avatarImage="@{ownerAvatarUrl}"
+        app:avatar="@{repo.owner.avatarUrl}"
         tools:ignore="ContentDescription"/>
 
     <LinearLayout
@@ -42,7 +38,7 @@
             android:id="@+id/repoNameWithId"
             android:textSize="@dimen/large_font"
             android:textStyle="bold"
-            android:text="@{String.format(@string/repo_name_with_id, repoItem.id,repoItem.name)}"
+            android:text="@{String.format(@string/repo_name_with_id, repo.id,repo.name)}"
             android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -51,12 +47,12 @@
             android:id="@+id/repoFullName"
             android:textSize="@dimen/small_font"
             android:textColor="@color/white"
-            android:text="@{repoItem.fullName}"
+            android:text="@{repo.fullName}"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/small_margin"
-            android:background="@drawable/grey_background"/>
+            android:background="@drawable/bg_black"/>
 
     </LinearLayout>
 

@@ -1,11 +1,14 @@
 package com.inderbagga.foundation.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Inder Bagga on 19/06/20.
  * Email er[dot]inderbagga[at]gmail[dot]com
  */
+@Parcelize
 data class Owner(
     @SerializedName("avatar_url")
     val avatarUrl: String,
@@ -43,4 +46,4 @@ data class Owner(
     val type: String,
     @SerializedName("url")
     val url: String
-)
+) : Parcelable

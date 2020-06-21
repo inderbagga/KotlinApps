@@ -5,17 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inderbagga.foundation.R
 import com.inderbagga.foundation.data.base.Status
-import com.inderbagga.foundation.data.model.RepoItem
+import com.inderbagga.foundation.data.model.Repo
 import com.inderbagga.foundation.databinding.MainFragmentBinding
 import com.inderbagga.foundation.ui.source.RepoAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 /**
  * Created by Inder Bagga on 19/06/20.
@@ -72,7 +75,14 @@ class MainFragment : Fragment(), RepoAdapter.RepoListAdapterInteraction {
         })
     }
 
-    override fun onRepoItemClick(repoItem: RepoItem) {
-        TODO("Not yet implemented")
+    override fun onRepoItemClick(repoItem: Repo) {
+
+        var bundle = bundleOf("repo" to repoItem)
+        findNavController().navigate(R.id.action_mainFragment_to_detailFragment, bundle)
+
+        Timber.tag("onRepoItemClick").d(repoItem.name)
+
+        /*val direction = MainFragmentDestinations.actionMainFragmentToDetailFragment(repoItem.owner)
+        findNavController().navigate(direction)*/
     }
 }

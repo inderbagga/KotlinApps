@@ -2,10 +2,7 @@ package com.inderbagga.foundation.app
 
 import android.app.Application
 import com.inderbagga.foundation.BuildConfig
-import com.inderbagga.foundation.app.modules.gitClientApiModule
-import com.inderbagga.foundation.app.modules.gitRemoteApiModule
-import com.inderbagga.foundation.app.modules.mainViewModel
-import com.inderbagga.foundation.app.modules.repoListDataSourceFactory
+import com.inderbagga.foundation.app.modules.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -30,6 +27,7 @@ class KotlinApplication : Application() {
             androidContext(this@KotlinApplication)
             modules(listOf(
                 mainViewModel,
+                detailViewModel,
                 gitRemoteApiModule,
                 gitClientApiModule,
                 repoListDataSourceFactory
