@@ -1,26 +1,47 @@
 package com.inderbagga.foundation.ui.main
 
+import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.inderbagga.foundation.data.model.Repositories
-import com.inderbagga.foundation.data.repo.GitRepo
-import com.inderbagga.foundation.util.Result
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.inderbagga.foundation.data.model.RepoItem
+import com.inderbagga.foundation.ui.source.RepoListDataSource
+import com.inderbagga.foundation.ui.source.RepoListDataSourceFactory
+import java.util.concurrent.Executors
 
-class MainViewModel(private val gitRepo:GitRepo) : ViewModel() {
+/**
+ * Created by Inder Bagga on 19/06/20.
+ * Email er[dot]inderbagga[at]gmail[dot]com
+ */
+class MainViewModel(private val repoListDataSourceFactory: RepoListDataSourceFactory) : ViewModel() {
 
-    val repositories = MutableLiveData<Result<Response<Repositories>>>()
+    var dataSource : MutableLiveData<RepoListDataSource>
+    lateinit var liveRepo: LiveData<PagedList<RepoItem>>
+    val isLoading: ObservableField<Boolean> = ObservableField()
+    var errorMessage: ObservableField<String> = ObservableField()
 
-    fun fetchRepositories(since: Int) {
-        viewModelScope.launch {
-            repositories.postValue(Result.loading(null))
-            try {
-                repositories.postValue(Result.success(gitRepo.getRepositories(since)))
-            } catch (e: Exception) {
-                repositories.postValue(Result.error(e.message.toString(), null))
-            }
-        }
+    init {
+        isLoading.set(true)
+        errorMessage.set(null)
+        dataSource = repoListDataSourceFactory.repoSource
+        initRepoListFactory()
+    }
+
+    private fun initRepoListFactory() {
+
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(true)
+            .setInitialLoadSizeHint(RepoListDataSource.PAGE_SIZE)
+            .setPageSize(RepoListDataSource.PAGE_SIZE)
+            .setPrefetchDistance(3)
+            .build()
+
+        val executor = Executors.newFixedThreadPool(5)
+
+        liveRepo = LivePagedListBuilder<Int, RepoItem>(repoListDataSourceFactory, config)
+            .setFetchExecutor(executor)
+            .build()
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="repoItem"
+            type="com.inderbagga.foundation.data.model.RepoItem" />
+
+        <variable
+            name="ownerAvatarUrl"
+            type="String" />
+    </data>
+<LinearLayout
+    android:id="@+id/repoItemLayout"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:padding="@dimen/normal_margin"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/ownerAvatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:scaleType="centerCrop"
+        app:avatarImage="@{ownerAvatarUrl}"
+        tools:ignore="ContentDescription"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginStart="@dimen/small_margin">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/repoNameWithId"
+            android:textSize="@dimen/large_font"
+            android:textStyle="bold"
+            android:text="@{String.format(@string/repo_name_with_id, repoItem.id,repoItem.name)}"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/repoFullName"
+            android:textSize="@dimen/small_font"
+            android:textColor="@color/white"
+            android:text="@{repoItem.fullName}"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_margin"
+            android:background="@drawable/grey_background"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</layout>

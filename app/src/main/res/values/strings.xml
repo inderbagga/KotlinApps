@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">KotlinApp</string>
+    <string name="app_name">Github App</string>
+
+    <string name="main_fragment_title">Github Repositories</string>
+    <string name="detail_fragment_title">Repository Owner Information</string>
+    <string name="msg_repo_list_is_empty" >Repos are Empty!</string>
+    <string name="msg_fetch_repo_list_has_error" >Ooops, Something went wrong!\n Please call 9888101950 to report the issue.</string>
+    <string name="repo_name_with_id" >%1$d %2$s</string>
+
 </resources>

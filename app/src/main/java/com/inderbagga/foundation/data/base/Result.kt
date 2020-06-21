@@ -1,5 +1,9 @@
-package com.inderbagga.foundation.util
+package com.inderbagga.foundation.data.base
 
+/**
+ * Created by Inder Bagga on 19/06/20.
+ * Email er[dot]inderbagga[at]gmail[dot]com
+ */
 data class Result<out T>(val status: Status, val response: T?, val message: String?) {
 
     companion object {
