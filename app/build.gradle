@@ -13,6 +13,8 @@ allOpen {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
     dataBinding {
         enabled = true
     }
