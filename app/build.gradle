@@ -4,11 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
     defaultConfig {
         applicationId "tk.zedlabs.wallaperapp2019"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -19,8 +20,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     packagingOptions {
         exclude 'META-INF/library-core_release.kotlin_module'
@@ -70,5 +71,5 @@ dependencies {
     implementation "com.mikepenz:materialdrawer:7.0.0-rc07"
     implementation "com.mikepenz:materialdrawer-nav:7.0.0-rc07"
     //palette
-    implementation 'com.android.support:palette-v7:29.0.0'
+    implementation 'com.android.support:palette-v7:30.0.0'
 }

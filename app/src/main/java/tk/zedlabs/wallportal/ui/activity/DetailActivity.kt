@@ -44,7 +44,7 @@ class DetailActivity : AppCompatActivity() {
         val intent = intent
         val urlFull = intent.getStringExtra("url_large")
         val urlRegular = intent.getStringExtra("url_regular")
-        val id = intent.getStringExtra("id")
+        val id = intent?.getStringExtra("id")
         val activity = intent.getStringExtra("Activity")
         val uri = FileProvider.getUriForFile(
             this@DetailActivity, BuildConfig.APPLICATION_ID + ".fileprovider",
@@ -75,7 +75,7 @@ class DetailActivity : AppCompatActivity() {
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
                     ) {
-                        imageDetailViewModel.downloadImage(resource, id)
+                        imageDetailViewModel.downloadImage(resource, id!!)
                         shortToast("Download Started")
                     }
 
@@ -98,7 +98,7 @@ class DetailActivity : AppCompatActivity() {
                         progressLayout.visibility = View.GONE
                         CoroutineScope(Dispatchers.IO).launch {
                             withContext(Dispatchers.IO) {
-                                imageDetailViewModel.downloadImage(resource, id)
+                                imageDetailViewModel.downloadImage(resource, id!!)
                             }
                             withContext(Dispatchers.Default) {
                                 setWallpaper1(uri)
@@ -134,7 +134,7 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
                 if (unique) {
-                    db.bookmarkDao().insert(BookmarkImage(id, urlFull, urlRegular))
+                    db.bookmarkDao().insert(BookmarkImage(id!!, urlFull, urlRegular))
                     withContext(Dispatchers.Main) {
                         shortToast("Added to Bookmarks!")
                     }
