@@ -18,6 +18,7 @@ android {
     dataBinding {
         enabled = true
     }
+
     defaultConfig {
         applicationId "com.elifox.legocatalog"
         minSdkVersion rootProject.minSdkVersion
